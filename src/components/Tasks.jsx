@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Task from './Task'
 import { useGetTasks } from '../react-query/queries.tasks'
 
 const Tasks = () => {
-  const { data: tasks, isPending } = useGetTasks()
+  const { data: tasks, isPending, isError, error } = useGetTasks()
 
   if (isPending) {
     return <h3>Loading...</h3>
   }
+
+  if (isError) {
+    return <h3>{ error.message }</h3>
+  }
+
   return (
     <ul>
       {
